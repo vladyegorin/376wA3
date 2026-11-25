@@ -55,9 +55,8 @@ python loglens.py --help
  
 ## Problems and fixes
  
-- **`File not found`**: check the path, and make sure you are in the repository root.
-- **`the following arguments are required: --file`**: add `--file` followed by the path to your CSV file.
-- **`invalid choice: 'error'`**: write the level in uppercase: `INFO`, `WARN`, or `ERROR`.
-- **`CSV must contain timestamp, level, and message columns`**: rename the headers in the first line of your file to `timestamp`, `level`, and `message`.
+- **`File not found: <path>`**: LogLens can't find the file. Check the path, and make sure you are running the command from the repository root.
+- **`Cannot read file: <path>`**: you don't have permission to read the file. Check the file's permissions, or use a copy you are allowed to read.
+- **`CSV must contain timestamp, level, and message columns`**: the first line of your file doesn't have the right headers. Rename them to `timestamp`, `level`, and `message`.
 
 If none of these help, open a GitHub issue in this repository with the command you ran and the error you got. Don't post your real log file - include a small example with any private data removed.
