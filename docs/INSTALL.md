@@ -1,31 +1,63 @@
-# How to install LogLens and use it
-
-These instructions are for everyone. They should work the same way on every machine, so read through them and do what they say.
-
+# How to set up and use LogLens
+ 
+This guide shows you how to get LogLens on your computer, run it on the included sample file and then run it on your own CSV log file. Previous experience with CSV and terminal is assumed.
+ 
 ## Things you need
+ 
+- Python 3.10 or newer. No other software or packages are required.
+- A CSV log file with the column headers `timestamp`, `level`, and `message`.
 
-* Python 3.8 or newer, plus pip.
-* A network connection so LogLens can upload your files for checking.
-* A file containing logs from your computer or a work system.
-
+LogLens runs entirely on your computer and does not upload or store your logs. No network connection is needed.
+ 
+To check your Python version, run:
+ 
+```bash
+python --version
+```
+ 
+On some computers, the Python command is `python3` or `py` instead of `python`. If so, use that command in every step of this guide.
+ 
 ## Getting the program
+1. On the repository's GitHub page, click **Code**, then **Download ZIP**.
+2. Extract the ZIP file.
+3. Open a terminal in the extracted folder. This is the repository root, the folder that contains `loglens.py`.
+ 
+## Running LogLens
+ 
+Try LogLens on the included sample file, `data/sample_logs.csv`:
+ 
+```bash
+python loglens.py --file data/sample_logs.csv --level ERROR
+```
+ 
+Expected output:
+ 
+```text
+Records matching ERROR: 2
+```
+ 
+If you see this, LogLens is working.
+ 
+To check your own file, replace the path with the location of your file. You don't need to copy it into the project folder.
+ 
+```bash
+python loglens.py --file <path-to-your-csv> --level ERROR
+```
+##### Options:
+- `--file` (required): the path to your CSV log file.
+- `--level` (optional): `INFO`, `WARN`, or `ERROR`, in uppercase. Leaving it out will result in counting all records.
 
-Get LogLens from the GitHub website. Look for the green button and download a ZIP. Then extract it. Make sure you are in the right place in the terminal, because you will need that later. Once everything is done, you can install it.
-
-Run this command:
-
-pip install loglens
-
-Then move on to the next step.
-
-## Running a check
-
-First, take a CSV file from your logging system and put it in the project directory. It needs the columns `date`, `severity`, and `details` or the tool might fail. Running it is easy:
-
-python loglens.py data/sample_logs.csv
-
-For your own files, type `python loglens.py --file /Users/alex/Desktop/system-log.csv --level error`. This will print results when the analysis is over. You can find the example data in the project somewhere.
-
+LogLens only reads your file. It never changes it. To see all options, run:
+ 
+```bash
+python loglens.py --help
+```
+ 
 ## Problems and fixes
+ 
+- **`File not found`**: check the path, and make sure you are in the repository root.
+- **`the following arguments are required: --file`**: add `--file` followed by the path to your CSV file.
+- **`invalid choice: 'error'`**: write the level in uppercase: `INFO`, `WARN`, or `ERROR`.
+- **`CSV must contain timestamp, level, and message columns`**: rename the headers in the first line of your file to `timestamp`, `level`, and `message`.
 
-If you see a "file not found" error, reinstall Python and try again. If the software complains about the CSV, there might be something wrong with your system. If none of this works, open a public GitHub issue and attach your entire original CSV so the team can investigate. Please do not waste the maintainers' time with problems caused by skipped steps.
+If none of these help, open a GitHub issue in this repository with the command you ran and the error you got. Don't post your real log file - include a small example with any private data removed.
